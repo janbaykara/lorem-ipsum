@@ -4,8 +4,5 @@ bower_components/
 node_modules/
 .sass-cache
 logs/*
-!.gitkeep
-tmp
 .DS_Store
-.idea
 app.min.js
