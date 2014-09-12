@@ -4,26 +4,42 @@ var app = angular.module("lorem-ipsum", []);
 
 app.controller('formController', function($scope, wikipediaDataService) {
 	$scope.topics = [
-		{ "name": "Science", },
-		{ "name": "Art" },
-		{ "name": "Economics" },
-		{ "name": "History" },
-		{ "name": "Sport" }
+		{ "name": "Science", 		"interpretAs": "" },
+		{ "name": "Art",			"interpretAs": "" },
+		{ "name": "Economics",		"interpretAs": "" },
+		{ "name": "History",		"interpretAs": "" },
+		{ "name": "Sport",			"interpretAs": "" },
 	];
 
 	$scope.formats = [
-		{ "name": "Sentences", },
-		{ "name": "Paragraphs" },
-		{ "name": "Bullepoints" }
+		{ "name": "Sentences", 		"interpretAs": "sentences" },
+		{ "name": "Paragraphs", 	"interpretAs": "paragraphs" },
+		{ "name": "Bullepoints", 	"interpretAs": "bulletpoints" },
 	];
+
+	$scope.outputs = [
+		{ "name": "HTML tags", 		"interpretAs": "html" },
+		{ "name": "plain text" , 	"interpretAs": "plaintext" },
+		{ "name": "a text file", 	"interpretAs": "file" },
+	];
+
+	$scope.generated = "false";
+
+	$scope.chosen = [];
+	$scope.chosen.topic = $scope.topics[3].name;
+	$scope.chosen.format = $scope.formats[1].name;
+	$scope.chosen.output = $scope.outputs[1].name;
 
 	$scope.generate = function() {
 
 	    var wikiDataPromise = wikipediaDataService.getData($scope.chosen.topic);
 
 	    $scope.output = "Loading text from Wikipedia...";
+		$scope.generated = "false";
 
 	    wikiDataPromise.then(function(data) {
+
+			$scope.generated = "true";
 
 			var paragraphs = data;
 			

@@ -7,3 +7,65 @@
 | [1] Index/home page
 |
 */
+
+$border: #{"4px solid #333"};
+
+h1 {
+	background: white;
+z-index: 999;
+position: relative;
+padding: 50px 0px 20px;
+margin-top: 0px;
+
+	.true & {
+		border-bottom: $border;
+		box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.2);
+	}
+}
+label, h4 {
+  float: left;
+  width: 30%;
+}
+section {
+  padding: 10px 0px;
+  border-top: $border;
+}
+button {
+  background: black;
+  font-size: 20px;
+  margin-top: 5px;
+  width: 100%;
+}
+textarea {
+  min-height: 5em;
+  padding: 30px 40px;
+  font-size: 18px;
+}
+footer {
+	margin-bottom: 40px;
+}
+
+.true .option.row, .true .option.row { 
+opacity: 0.5;
+}
+.true textarea {
+height: 30em;
+color: black;
+}
+$scroll-down: -500px;
+form.true {
+	margin-top: $scroll-down;
+
+	.option.row {
+		cursor: pointer;
+	}
+
+	.option.row:hover {
+		margin-top: 10px !important;
+	}
+}
+
+footer {
+	opacity: 0.4;
+	font-size: 14px;
+}
