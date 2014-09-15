@@ -27,31 +27,38 @@ app.controller('formController', function($scope, wikipediaDataService, $locatio
 	$scope.formatKey = "paragraphs";
 	$scope.outputKey = "html";
 	$scope.quantity = 5;
+
+	// Generate placeholder text on ng-click
 	$scope.generate = function() {
 
 		// Load text material from Wikipedia
 	    var wikiDataPromise = wikipediaDataService.getData($scope.topicName);
 
+	    // Leave a 'loading message' of some kind
+		$scope.generated = "not-generated";
 	    $scope.output = "Loading text from Wikipedia...";
-		$scope.generated = "false";
 
-	    wikiDataPromise.then(function(data) {
+	    // Wait for the data to arrive
+	    wikiDataPromise.then(function(arrayOfStrings) {
 
-			$scope.generated = "true";
+			// And then format it according to the user's options
+			arrayOfStrings = sanitiseArray 			( arrayOfStrings );
+			arrayOfStrings = formatArray 			( arrayOfStrings, $scope.formatKey, $scope.outputKey );
+			arrayOfStrings = outputArray 			( arrayOfStrings, $scope.formatKey, $scope.outputKey );
+			var preparedString = getQuantityAsString( arrayOfStrings, $scope.quantity );
 
-			var paragraphs = data;
-			
-			var output = formatData(paragraphs,$scope.chosen.format);
+			// Finally replace the loading message with the output
+			$scope.output = preparedString;
+			$scope.generated = "generated";
 
-			$scope.output = output;
 			// Scroll view to the output
 			$location.hash('results');
 	        $anchorScroll();
 	    });
-
 	};
-})
+});
 
+// Wikipedia Data Service, primary function getData(topicName) outputs a full article as an array of paragraphs.
 app.factory('wikipediaDataService', function($http, $q) {
 
     var getData = function(request) {
@@ -70,33 +77,104 @@ app.factory('wikipediaDataService', function($http, $q) {
     return { getData: getData };
 });
 
-function formatData(paragraphs,format) {
-	var output = "";
-	paragraphs.splice(0, 1);
-	angular.forEach(paragraphs, function(p) {
-		// Remove Wikipedia formatting
-			var sanitisedOutput = p
-					.replace("/\[[0-9]+\]/",'');
+function sanitiseArray(array) {
+	var sanitisedArray = [];
 
-		// PARAGRAPHS
-			if(format == "Paragraphs") {
-				sanitisedOutput
-					.trim()
-					.replace("\t",'')
-			} else
-		// SENTENCES
-			if(format == "Sentences") {
-				sanitisedOutput
-					.replace(".",".\n\n");
-			} else
-		// BULLETPOINTS
-			if(format == "Bulletpoints") {
-				sanitisedOutput
-					.replace(".","</li>\n\n<li>");
-			}
+	array.filter(function(n){ return n != undefined });
 
-		output += sanitisedOutput+"\n\n";
+	angular.forEach(array, function(string) {
+		// Take each string, clean it up
+		var sanitisedString = string.replace(/(\[[0-9]+\])/gim,'') // Remove [0] references - not working
+
+		sanitisedArray.push(sanitisedString);
 	});
 
-	return output;
+	return sanitisedArray;
 }
+
+// Function to take paragraphs array and output accordingly.
+function formatArray(sanitisedArray,format,output) {
+	var formattedArray = [];
+
+	angular.forEach(sanitisedArray, function(sanitisedString) {
+		var formattedString;
+
+		// Format each string
+		if(format == "paragraphs") {
+			// do feck all
+			formattedString = sanitisedString.replace(/^(.{100}[^\s]*).*/gim, "$1")+"..."; // Max length.
+			formattedString = sanitisedString;
+		} else {
+			// well then you have to chop each paragraph into single sentence strings
+			var sentencesArray = sanitisedString.match( /[^\.!\?]+[\.!\?]+/g )
+
+			angular.forEach(sentencesArray, function(sentence) {
+				if(formattedString != "undefined") {
+					formattedString = sentence;
+				}
+				formattedString = formattedString.replace(/^"/gim, ""); // remove "
+			});
+
+			// and then...
+			if(format == "bulletpoints") {
+				// trim the string to bulletpoint size
+				if(formattedString != null) {
+					formattedString = formattedString.replace(/^(.{30}[^\s]*).*/gim, "$1")+"..."; 
+				}
+
+				// and if it's not html then
+				if(output != "html") {
+					// additionally add some kinda bulletpoint formatting for plaintext
+					formattedString = "* "+formattedString;
+				}
+			}
+		}
+
+		// Add each string to sanitisedArray for return
+		formattedArray.push(formattedString);
+	});
+
+	return formattedArray;
+}
+
+function outputArray(formattedArray,format,output) {
+	// Manipulate if HTML
+	if(output == "html") {
+		var readyArray = wrapInHTML(formattedArray,format);
+	} else {
+		var readyArray = formattedArray;
+	}
+	return readyArray;
+}
+
+// Function to wrap in HTML tags...
+function wrapInHTML(arrayOfStrings,format) {
+	var outputArray = [];
+
+	if(format == "paragraphs" || format == "sentences") {
+		// default to <p> paragraph
+		angular.forEach(arrayOfStrings, function(string) {
+			var htmlString = "<p>"+string+"</p>";
+			outputArray.push(htmlString);
+		});
+	} else {
+		// otherwise output <li> list
+		angular.forEach(arrayOfStrings, function(string) {
+			var htmlString = "<li>"+string+"</li>";
+			outputArray.push(htmlString);
+		});
+	}
+
+	return outputArray;
+}
+
+function getQuantityAsString(readyArray,quantity) {
+	// Limit formattedArray by quantity
+	var maximumOffset = readyArray.length - quantity - 1;
+	var randomOffset = Math.floor(Math.random() * maximumOffset);
+	var outputArray = readyArray.slice(randomOffset, randomOffset + quantity)
+
+	// Return the formattedArray as a string with double line spacing
+	var outputString = outputArray.join("\n\n");
+	return outputString;
+} 
