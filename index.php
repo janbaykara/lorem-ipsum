@@ -24,7 +24,7 @@ $app->SCAFFOLD_HEAD();
 			</label>
 
 			<div id="specify-topic" class="column small-12">
-				<input type="text" ng-model="topic" placeholder="(Or specify your own topic)"/>
+				<input type="text" ng-model="topicName" placeholder="(Or specify your own topic)"/>
 			</div>
 		</section>
 

@@ -11,6 +11,7 @@ $json = json_encode($paragraphs);
 echo $json;
 
 function grabFromWikipedia($topic) {
+  $topic = str_replace(" ","%20",$topic);
   $wikipage = file_get_contents("http://en.m.wikipedia.org/wiki/".$topic);
   return $wikipage;
 }

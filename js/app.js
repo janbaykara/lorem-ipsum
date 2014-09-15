@@ -9,9 +9,9 @@ app.controller('formController', function($scope, wikipediaDataService, $locatio
 	$scope.db = {
 		"topics": 			[ "Science", "Art", "Economics", "History", "Sport"], // # To illustrate
 		"formats": {
-			"sentences": 	{ "key": "sentences", 		"name": "Sentences", 	 	"echo": "in sentences", },
-			"paragraphs": 	{ "key": "paragraphs", 		"name": "Paragraphs", 	 	"echo": "long-winded",  },
-			"bulletpoints": { "key": "bulletpoints", 	"name": "Bullet points", 	"echo": "snappy", 		},
+			"sentences": 	{ "key": "sentences", 		"name": "Sentences", 	 	"echo": "regular-stylee sentences", },
+			"paragraphs": 	{ "key": "paragraphs", 		"name": "Paragraphs", 	 	"echo": "long-winded paragraphs",  },
+			"bulletpoints": { "key": "bulletpoints", 	"name": "Bullet points", 	"echo": "snappy bulletpoints", },
 		}, 
 		"outputs": {	 
 			"html": 		{ "key": "html",			"name": "HTML tags", 		"echo": "HTML tags", 	},
