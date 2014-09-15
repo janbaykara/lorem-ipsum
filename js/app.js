@@ -15,8 +15,7 @@ app.controller('formController', function($scope, wikipediaDataService, $locatio
 		}, 
 		"outputs": {	 
 			"html": 		{ "key": "html",			"name": "HTML tags", 		"echo": "HTML tags", 	},
-			"plaintext": 	{ "key": "plaintext",		"name": "Plain text", 		"echo": "plain text" ,  },
-			"textfile": 	{ "key": "textfile",		"name": ".txt file", 		"echo": "a text file",  },
+			"plaintext": 	{ "key": "plaintext",		"name": "Plain text", 		"echo": "plain text" ,  }
 		}
 	}
 
@@ -64,6 +63,10 @@ app.controller('formController', function($scope, wikipediaDataService, $locatio
 
 	$scope.logPlaceholder = function() {
 		console.log($scope.output); // to ng-click
+	}
+
+	$scope.saveToFile = function() {
+		location.href = "data:application/octet-stream," + encodeURIComponent($scope.output);
 	}
 });
 

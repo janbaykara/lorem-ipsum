@@ -57,8 +57,9 @@ $app->SCAFFOLD_HEAD();
 		<h4 class="small-4 column">Format: {{ db.formats[formatKey].name }}</h4>
 		<h4 class="small-4 column">Output: {{ db.outputs[outputKey].name }}</h4>
 
-		<button ng-click="generate()" scroll-on-click>Generate placeholder text!</button>
+		<button class="small-12" id="button-generate" ng-click="generate()" scroll-on-click>Generate placeholder text!</button>
 		<button class="small-6" id="button-save-clipboard" clip-copy="getPlaceholder()" clip-click="logPlaceholder()">Copy to clipboard</button>
+		<button class="small-6" id="button-save-file" ng-click="saveToFile()">Save to file</button>
 
 		<textarea id="results" ng-bind="output"></textarea>
 	</section>
