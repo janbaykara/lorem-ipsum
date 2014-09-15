@@ -8,53 +8,59 @@ $app->PAGETITLE = null;
 
 $app->SCAFFOLD_HEAD();
 ?>
-<main id="wrapper">
-
-	<form ng-controller="formController" class="{{ generated }}">
+<main id="wrapper" ng-controller="formController" class="{{ generated }}">
 
 	<div class="row">
 		<h1><?=$app->PROJECTNAME?></h1>
 	</div>
 
-		<section id="option-topic" class="row option" ng-click="generated = false">
+	<div id="form" ng-click="generated = false">
+		<section id="option-topic" class="row option">
 			<h2>Hey, shitforbrains, gimme placeholder text about...</h2>
-			<label class="option" ng-repeat="topic in topics" >
-				<input ng-model="$parent.chosen.topic" type="radio" name="topic" value="{{topic.name}}">
-				{{topic.name}}
+
+			<label ng-repeat="topic in db.topics" class="option column small-4">
+				<input ng-model="$parent.topicName" type="radio" name="topic" value="{{ topic }}">
+				{{ topic }}
 			</label>
-			<div class="clearfix"></div>
-			<h4>(Or specify your own topic)</h4>
-			<input type="text" ng-model="$parent.chosen.topic" value="Biology" />
+
+			<div id="specify-topic" class="column small-12">
+				<input type="text" ng-model="topic" placeholder="(Or specify your own topic)"/>
+			</div>
 		</section>
 
-		<section id="option-format" class="row option" ng-click="generated = false">
-			<h2>An' I wannit {{ chosen.format }} long!</h2>
-			<label class="option" ng-repeat="format in formats" >
-				<input ng-model="$parent.chosen.format" type="radio" name="format" value="{{format.name}}">
-				{{format.name}}
+		<section id="option-format" class="row option">
+			<h2>An' I wannit {{ db.formats[formatKey].echo }}!</h2>
+
+			<label ng-repeat="format in db.formats" class="option column small-3">
+				<input ng-model="$parent.formatKey" type="radio" name="format" value="{{ format.key }}" min=1 max=20 step=1>
+				{{ format.name }}
+			</label>
+
+			<div class="column small-3" id="quantity">
+				<input type='number' name="quantity" ng-model='quantity' />
+			</div>
+
+		</section>
+
+		<section id="option-output" class="row option">
+			<h2>In {{ db.outputs[outputKey].echo }}, obviously.</h2>
+
+			<label ng-repeat="output in db.outputs" class="option column small-4">
+				<input ng-model="$parent.outputKey" type="radio" name="output" value="{{output.key }}">
+				{{ output.name }}
 			</label>
 		</section>
+	</div>
 
-		<section id="option-output" class="row option" ng-click="generated = false">
-			<h2>In {{ chosen.output }}, obviously.</h2>
-			<label class="option" ng-repeat="output in outputs" >
-				<input ng-model="$parent.chosen.output" type="radio" name="output" value="{{output.name}}">
-				{{output.name}}
-			</label>
-		</section>
+	<section id="generate" class="row">
+		<h4 class="small-4 column">Topic: {{ topicName }}</h4>
+		<h4 class="small-4 column">Format: {{ db.formats[formatKey].name }}</h4>
+		<h4 class="small-4 column">Output: {{ db.outputs[outputKey].name }}</h4>
 
-		<section id="generate" class="row" >
-			<h4>Topic: {{ chosen.topic }}</h4>
-			<h4>Format: {{ chosen.format }}</h4>
-			<h4>Output: {{ chosen.output }}</h4>
+		<button ng-click="generate()" scroll-on-click>Generate placeholder text!</button>
 
-			<button ng-click="generate()" scroll-on-click>Generate placeholder text!</button>
-
-			<textarea ng-bind="output"></textarea>
-		</section>
-
-	</form>
 		<textarea id="results" ng-bind="output"></textarea>
+	</section>
 	
 </main>
 <? $app->SCAFFOLD_FOOT() ?>

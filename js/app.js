@@ -2,38 +2,35 @@
 
 var app = angular.module("lorem-ipsum", []);
 
-app.controller('formController', function($scope, wikipediaDataService) {
-	$scope.topics = [
-		{ "name": "Science", 		"interpretAs": "" },
-		{ "name": "Art",			"interpretAs": "" },
-		{ "name": "Economics",		"interpretAs": "" },
-		{ "name": "History",		"interpretAs": "" },
-		{ "name": "Sport",			"interpretAs": "" },
-	];
-
-	$scope.formats = [
-		{ "name": "Sentences", 		"interpretAs": "sentences" },
-		{ "name": "Paragraphs", 	"interpretAs": "paragraphs" },
-		{ "name": "Bullepoints", 	"interpretAs": "bulletpoints" },
-	];
-
-	$scope.outputs = [
-		{ "name": "HTML tags", 		"interpretAs": "html" },
-		{ "name": "plain text" , 	"interpretAs": "plaintext" },
-		{ "name": "a text file", 	"interpretAs": "file" },
-	];
 app.controller('formController', function($scope, wikipediaDataService, $location, $anchorScroll) {
+
+	// Data model
+	$scope.db = {
+		"topics": 			[ "Science", "Art", "Economics", "History", "Sport"], // # To illustrate
+		"formats": {
+			"sentences": 	{ "key": "sentences", 		"name": "Sentences", 	 	"echo": "in sentences", },
+			"paragraphs": 	{ "key": "paragraphs", 		"name": "Paragraphs", 	 	"echo": "long-winded",  },
+			"bulletpoints": { "key": "bulletpoints", 	"name": "Bullet points", 	"echo": "snappy", 		},
+		}, 
+		"outputs": {	 
+			"html": 		{ "key": "html",			"name": "HTML tags", 		"echo": "HTML tags", 	},
+			"plaintext": 	{ "key": "plaintext",		"name": "Plain text", 		"echo": "plain text" ,  },
+			"textfile": 	{ "key": "textfile",		"name": ".txt file", 		"echo": "a text file",  },
+		}
+	}
 
 	$scope.generated = "false";
 
-	$scope.chosen = [];
-	$scope.chosen.topic = $scope.topics[3].name;
-	$scope.chosen.format = $scope.formats[1].name;
-	$scope.chosen.output = $scope.outputs[1].name;
 
+	// Default generation options ( database id )
+	$scope.topicName = "Economics";
+	$scope.formatKey = "paragraphs";
+	$scope.outputKey = "html";
+	$scope.quantity = 5;
 	$scope.generate = function() {
 
-	    var wikiDataPromise = wikipediaDataService.getData($scope.chosen.topic);
+		// Load text material from Wikipedia
+	    var wikiDataPromise = wikipediaDataService.getData($scope.topicName);
 
 	    $scope.output = "Loading text from Wikipedia...";
 		$scope.generated = "false";
