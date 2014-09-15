@@ -29,16 +29,15 @@ $app->SCAFFOLD_HEAD();
 		</section>
 
 		<section id="option-format" class="row option">
-			<h2>An' I wannit {{ db.formats[formatKey].echo }}!</h2>
+			<h2>An' I wannit in
+				<input type='number' name="quantity" ng-model='quantity' ng-class="{doubledigits: (quantity > 9)}" step="1" min="1" max="20" />
+				{{ db.formats[formatKey].echo }}!
+			</h2>
 
 			<label ng-repeat="format in db.formats" class="option column small-3">
-				<input ng-model="$parent.formatKey" type="radio" name="format" value="{{ format.key }}" min=1 max=20 step=1>
+				<input ng-model="$parent.formatKey" type="radio" name="format" value="{{ format.key }}">
 				{{ format.name }}
 			</label>
-
-			<div class="column small-3" id="quantity">
-				<input type='number' name="quantity" ng-model='quantity' />
-			</div>
 
 		</section>
 

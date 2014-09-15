@@ -18,6 +18,36 @@ $input-select-border-width: #{"3px solid"};
 	@extend .column;
 }
 
+input[type=number] {
+	font-size: inherit;
+	border: inherit;
+	display: inline;
+	position: inherit;
+	padding: 0;
+	margin: 0;
+	color: black;
+	font-weight: inherit;
+	overflow: visible !important;
+	-webkit-appearance: none;
+	width: 40px;
+	height: 60px;
+	margin-right: -20px;
+	background: none;
+	padding-right: 0px;
+	color: #557;
+}
+input[type=number]:focus {
+	outline: 0 !important;
+	box-shadow: none !important;
+		-webkit-appearance: none !important;
+	border: 0px !important;
+	background: none !important;
+}
+
+.doubledigits {
+	width: 60px !important;
+}
+
 //
 
 /* input,
