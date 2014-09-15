@@ -21,7 +21,6 @@ app.controller('formController', function($scope, wikipediaDataService, $locatio
 
 	$scope.generated = "false";
 
-
 	// Default generation options ( database id )
 	$scope.topicName = "Economics";
 	$scope.formatKey = "paragraphs";
@@ -189,4 +188,4 @@ function getQuantityAsString(readyArray,quantity) {
 	// Return the formattedArray as a string with double line spacing
 	var outputString = outputArray.join("\n\n");
 	return outputString;
-} 
+}

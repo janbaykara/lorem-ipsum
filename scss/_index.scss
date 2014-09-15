@@ -103,12 +103,6 @@ button {
   margin-top: 5px;
 
   @extend .column;
-  @extend .small-12;
-}
-textarea {
-  min-height: 5em;
-  padding: 30px 50px;
-  font-size: 18px;
 }
 footer {
 	margin-bottom: 40px;
@@ -133,6 +127,14 @@ $scroll-down: -500px;
 	.option.row { 
 		opacity: 0.5;
 	}
+}
+
+textarea {
+  border: 5px solid black;
+  border-bottom: 0px;
+  min-height: 5em;
+  padding: 50px 60px !important;
+  font-size: 18px;
 }
 
 footer {
@@ -170,9 +172,4 @@ font-weight: bold;
 }
 h2 {
 font-weight: bold;
-}
-textarea {
-  padding: 100px;
-  border: 5px solid black;
-  border-bottom: 0px
 }
