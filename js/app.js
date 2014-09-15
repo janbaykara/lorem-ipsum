@@ -22,6 +22,7 @@ app.controller('formController', function($scope, wikipediaDataService) {
 		{ "name": "plain text" , 	"interpretAs": "plaintext" },
 		{ "name": "a text file", 	"interpretAs": "file" },
 	];
+app.controller('formController', function($scope, wikipediaDataService, $location, $anchorScroll) {
 
 	$scope.generated = "false";
 
@@ -46,6 +47,9 @@ app.controller('formController', function($scope, wikipediaDataService) {
 			var output = formatData(paragraphs,$scope.chosen.format);
 
 			$scope.output = output;
+			// Scroll view to the output
+			$location.hash('results');
+	        $anchorScroll();
 	    });
 
 	};

@@ -9,6 +9,7 @@
 */
 
 $border: #{"4px solid #333"};
+$if-generated-class: #{".generated"};
 
 h1 {
 	background: white;
@@ -17,10 +18,10 @@ position: relative;
 padding: 50px 0px 20px;
 margin-top: 0px;
 
-	.true & {
-		border-bottom: $border;
-		box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.2);
-	}
+	// #{$if-generated-class} & {
+	// 	border-bottom: $splitter-border;
+	// 	box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.2);
+	// }
 }
 label, h4 {
   float: left;
@@ -56,12 +57,20 @@ $scroll-down: -500px;
 form.true {
 	margin-top: $scroll-down;
 
+#{$if-generated-class} {
 	.option.row {
 		cursor: pointer;
 	}
 
 	.option.row:hover {
 		margin-top: 10px !important;
+	textarea {
+		height: 30em;
+		color: black;
+	}
+
+	.option.row { 
+		opacity: 0.5;
 	}
 }
 

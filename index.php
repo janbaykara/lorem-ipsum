@@ -54,6 +54,7 @@ $app->SCAFFOLD_HEAD();
 		</section>
 
 	</form>
+		<textarea id="results" ng-bind="output"></textarea>
 	
 </main>
 <? $app->SCAFFOLD_FOOT() ?>
