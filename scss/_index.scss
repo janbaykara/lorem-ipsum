@@ -8,62 +8,93 @@
 |
 */
 
-$border: #{"4px solid #333"};
 $if-generated-class: #{".generated"};
+
+$splitter-border: #{"4px solid #333"};
+$input-focus-yellow: #febb09;
+$input-select-border-width: #{"3px solid"};
+
+.row > * {
+	@extend .column;
+}
+
+//
+
+/* input,
+select,
+textarea,
+button {
+	&:active {
+    	outline: $input-select-border-width black;
+  	}
+
+	&:focus, {
+	    outline: $input-select-border-width $input-focus-yellow;
+	}
+}
+
+input[type=radio] {
+	background: #E8E8E8 !important;
+	display: block !important;
+	padding: 25px !important;
+	-webkit-appearance: none;
+	margin: 10px 0px 0px;
+
+	&:active {
+		background: $input-focus-yellow !important;
+	}
+} */
+
+//
 
 h1 {
 	background: white;
-z-index: 999;
-position: relative;
-padding: 50px 0px 20px;
-margin-top: 0px;
+	z-index: 999;
+	position: relative;
+	padding: 50px 0px 20px;
+	margin-top: 0px;
 
 	// #{$if-generated-class} & {
 	// 	border-bottom: $splitter-border;
 	// 	box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.2);
 	// }
 }
+
 label, h4 {
   float: left;
-  width: 30%;
 }
 section {
   padding: 10px 0px;
-  border-top: $border;
+  border-top: $splitter-border;
 }
 button {
   background: black;
   font-size: 20px;
   margin-top: 5px;
-  width: 100%;
+
+  @extend .column;
+  @extend .small-12;
 }
 textarea {
   min-height: 5em;
-  padding: 30px 40px;
+  padding: 30px 50px;
   font-size: 18px;
 }
 footer {
 	margin-bottom: 40px;
 }
 
-.true .option.row, .true .option.row { 
-opacity: 0.5;
+#specify-topic {
+	margin-top: 15px;
 }
-.true textarea {
-height: 30em;
-color: black;
-}
+
 $scroll-down: -500px;
-form.true {
-	margin-top: $scroll-down;
 
 #{$if-generated-class} {
 	.option.row {
 		cursor: pointer;
 	}
 
-	.option.row:hover {
-		margin-top: 10px !important;
 	textarea {
 		height: 30em;
 		color: black;
@@ -77,4 +108,41 @@ form.true {
 footer {
 	opacity: 0.4;
 	font-size: 14px;
+}
+
+@import url(http://weloveiconfonts.com/api/?family=iconicfill|maki);
+
+/* iconicfill */
+[class*="iconicfill-"]:before {
+  font-family: 'IconicFill', sans-serif;
+}
+
+/* maki */
+[class*="maki-"]:before {
+  font-family: 'maki', sans-serif;
+}
+
+label:before {
+  font-family: 'maki', sans-serif !important;
+  //content: "asda";
+}
+
+
+// * {
+//   color: white !important;
+//   background: #D5542E !important;
+// }
+button {
+  background: black !important;
+}
+h1 {
+font-weight: bold;
+}
+h2 {
+font-weight: bold;
+}
+textarea {
+  padding: 100px;
+  border: 5px solid black;
+  border-bottom: 0px
 }
