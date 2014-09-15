@@ -112,6 +112,8 @@ class App {
 
     <!-- JS Libs -->
         <script src='bower_components/angular/angular.min.js'></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.1.6/ZeroClipboard.min.js"></script>
+        <script src='bower_components/ng-clip/src/ngClip.js'></script>
 
     <!-- JS Logic -->
         <script src='js/app.min.js'></script>

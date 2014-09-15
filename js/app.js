@@ -1,6 +1,7 @@
 'use strict';
 
-var app = angular.module("lorem-ipsum", []);
+var app = angular.module("lorem-ipsum", ['ngClipboard']);
+
 
 app.controller('formController', function($scope, wikipediaDataService, $location, $anchorScroll) {
 
@@ -56,6 +57,14 @@ app.controller('formController', function($scope, wikipediaDataService, $locatio
 	        $anchorScroll();
 	    });
 	};
+
+	$scope.getPlaceholder = function() {
+		return $scope.output; // to ng-click
+	}
+
+	$scope.logPlaceholder = function() {
+		console.log($scope.output); // to ng-click
+	}
 });
 
 // Wikipedia Data Service, primary function getData(topicName) outputs a full article as an array of paragraphs.
