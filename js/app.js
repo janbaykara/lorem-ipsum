@@ -61,7 +61,7 @@ app.controller('formController', function($scope, wikipediaDataService, $locatio
 	}
 
 	$scope.logPlaceholder = function() {
-		console.log($scope.output); // to ng-click
+		// ng-click
 	}
 
 	$scope.saveToFile = function() {
@@ -91,7 +91,7 @@ app.factory('wikipediaDataService', function($http, $q) {
 function sanitiseArray(array) {
 	var sanitisedArray = [];
 
-	array.filter(function(n){ return n != undefined });
+	array = array.filter(function(n){ return n != "undefined" });
 
 	angular.forEach(array, function(string) {
 		// Take each string, clean it up
