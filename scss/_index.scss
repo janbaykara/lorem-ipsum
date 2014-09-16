@@ -159,6 +159,12 @@ label:before {
   //content: "asda";
 }
 
+#option-output label {
+	margin-top: 32px;
+	@media (min-width: 912px) {
+		margin-top: 14px;
+	}
+}
 
 // * {
 //   color: white !important;

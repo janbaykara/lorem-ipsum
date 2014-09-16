@@ -34,7 +34,7 @@ $app->SCAFFOLD_HEAD();
 				{{ db.formats[formatKey].echo }}!
 			</h2>
 
-			<label ng-repeat="format in db.formats" class="option column small-3">
+			<label ng-repeat="format in db.formats" class="option column small-4">
 				<input ng-model="$parent.formatKey" type="radio" name="format" value="{{ format.key }}">
 				{{ format.name }}
 			</label>
@@ -42,9 +42,9 @@ $app->SCAFFOLD_HEAD();
 		</section>
 
 		<section id="option-output" class="row option">
-			<h2>In {{ db.outputs[outputKey].echo }}, obviously.</h2>
+			<h2 class="small-12 medium-6">In {{ db.outputs[outputKey].echo }}, obviously.</h2>
 
-			<label ng-repeat="output in db.outputs" class="option column small-4">
+			<label ng-repeat="output in db.outputs" class="option column small-6 medium-3">
 				<input ng-model="$parent.outputKey" type="radio" name="output" value="{{output.key }}">
 				{{ output.name }}
 			</label>
