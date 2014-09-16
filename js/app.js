@@ -95,7 +95,7 @@ function sanitiseArray(array) {
 
 	angular.forEach(array, function(string) {
 		// Take each string, clean it up
-		var sanitisedString = string.replace(/(\[[0-9]+\])/gim,'') // Remove [0] references - not working
+		var sanitisedString = string.replace(/(\[[0-9a-zA-Z\s]+\])/gim,'') // Remove [0] references - not working
 
 		sanitisedArray.push(sanitisedString);
 	});
@@ -123,7 +123,7 @@ function formatArray(sanitisedArray,format,output) {
 				if(formattedString != "undefined") {
 					formattedString = sentence;
 				}
-				formattedString = formattedString.replace(/^"/gim, ""); // remove "
+				formattedString = formattedString.replace(/^["\s]*/gim, ""); // remove "
 			});
 
 			// and then...
