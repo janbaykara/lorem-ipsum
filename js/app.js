@@ -141,8 +141,10 @@ function formatArray(sanitisedArray,format,output) {
 			}
 		}
 
-		// Add each string to sanitisedArray for return
-		formattedArray.push(formattedString);
+		if(formattedString != "undefined") {
+			// Add each string to sanitisedArray for return
+			formattedArray.push(formattedString);
+		}
 	});
 
 	return formattedArray;
