@@ -7,7 +7,7 @@ app.controller('formController', function($scope, wikipediaDataService, $locatio
 
 	// Data model
 	$scope.db = {
-		"topics": 			[ "Science", "Art", "Economics", "History", "Sport"], // # To illustrate
+		"topics": 			[ "Science", "Art", "Economics", "History", "Politics", "Sport", "Religion", "Nature"], // # To illustrate
 		"formats": {
 			"sentences": 	{ "key": "sentences", 		"name": "Sentences", 	 	"echo": "regular-stylee sentences", },
 			"paragraphs": 	{ "key": "paragraphs", 		"name": "Paragraphs", 	 	"echo": "long-winded paragraphs",  },
